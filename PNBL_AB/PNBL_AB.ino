@@ -5,7 +5,7 @@
 
   MADE by TEAM a.r.g. : http://www.team-arg.org/more-about.html
 
-  2016 - JO3RI
+  2017 - Gaveno - JO3RI
 
   License: MIT : https://opensource.org/licenses/MIT
 
@@ -14,7 +14,8 @@
 //determine the game
 #define GAME_ID 44
 
-#include "Arglib.h"
+#include <Arduino.h>
+#include <Arduboy2.h>
 #include "globals.h"
 #include "menu.h"
 #include "game.h"
@@ -41,9 +42,10 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
 
 
 void setup() {
-  arduboy.start();
+  arduboy.boot();                                           // begin with the boot logo en setting up the device to work
+  arduboy.audio.begin();
+  arduboy.bootLogoSpritesSelfMasked();
   arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
-  arduboy.initRandomSeed();                                 // This sets the random to more random, remove this if no random is needed !
 }
 
 
