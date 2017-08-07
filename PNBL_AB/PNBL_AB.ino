@@ -15,15 +15,11 @@
 #define GAME_ID 44
 
 #include <Arduino.h>
-#include <Arduboy2.h>
 #include "globals.h"
 #include "menu.h"
 #include "game.h"
 #include "inputs.h"
-#include "player.h"
 #include "elements.h"
-#include "enemies.h"
-#include "levels.h"
 
 typedef void (*FunctionPointer) ();
 
@@ -51,8 +47,8 @@ void setup() {
 
 void loop() {
   if (!(arduboy.nextFrame())) return;
-  arduboy.poll();
-  arduboy.clearDisplay();
+  arduboy.pollButtons();
+  arduboy.clear();
   ((FunctionPointer) pgm_read_word (&mainGameLoop[gameState]))();
   arduboy.display();
 }

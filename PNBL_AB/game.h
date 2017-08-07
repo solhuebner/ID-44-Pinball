@@ -4,15 +4,11 @@
 #include <Arduino.h>
 #include "globals.h"
 #include "inputs.h"
-#include "player.h"
-#include "enemies.h"
 #include "elements.h"
-#include "levels.h"
 
 void stateMenuPlay()
 //void stateGamePrepareLevel()
 {
-  player.score = 0; 
   gameState = STATE_GAME_NEXT_LEVEL;
 };
 
@@ -27,8 +23,6 @@ void stateGameNextLevel()
 void stateGamePlaying()
 {
   checkInputs();
-  drawPlayer();
-  checkCollisions();
 };
 
 void stateGamePause()
