@@ -18,7 +18,7 @@ struct vec2
 
   float getMagnitude()
   {
-    float fpout = sqrt(pow(x, 2) + pow(y, 2));
+    float fpout = sqrt(abs(pow(x, 2) + pow(y, 2)));
     //Serial.print("magnitude: ");
     //Serial.println(fpout.getValue());
     return fpout;
@@ -78,6 +78,14 @@ struct vec2
     return *this;
   }*/
 
+  //debug
+  void print() {
+    Serial.print("vec2: ");
+    Serial.print(x);
+    Serial.print(", ");
+    Serial.print(y);
+  }
+
 };
 
 vec2 operator+(vec2 lhs, const vec2 &rhs)
@@ -91,7 +99,7 @@ vec2 operator-(vec2 lhs, const vec2 &rhs)
 {
   //vec2 t = lhs;
   //t -= rhs;
-  return (lhs += rhs);
+  return (lhs -= rhs);
 }
 
 // dot product

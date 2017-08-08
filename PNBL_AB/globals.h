@@ -3,8 +3,9 @@
 
 #include <Arduino.h>
 #include <Arduboy2.h>
-#include <ATMlib.h>
+//#include <ATMlib.h>
 #include "bitmaps.h"
+#include "vec2.h"
 
 //define menu states (on main menu)
 #define STATE_MENU_INTRO             0
@@ -35,11 +36,13 @@
 
 Arduboy2Base arduboy;
 Sprites sprites;
-ATMsynth ATM;
+//ATMsynth ATM;
 
 byte gameState = STATE_MENU_INTRO;   // start the game with the TEAM a.r.g. logo
 byte menuSelection = STATE_MENU_PLAY; // PLAY menu item is pre-selected
 byte globalCounter = 0;
 byte level = FIRST_LEVEL;
+byte camY = 0;
+vec2 gravity(0, 0.1);
 
 #endif
