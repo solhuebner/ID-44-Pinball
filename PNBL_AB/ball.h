@@ -173,7 +173,7 @@ public:
 
   void reflect(vec2 normal_vector) {
     vec2 vadded = (velocity.getNormal() + normal_vector);
-    float reduction = max((vadded.x + vadded.y) / 3, 0.5);
+    float reduction = max((vadded.x + vadded.y) / 2, 0.35);
     velocity -= normal_vector * 2 * (velocity * normal_vector);
     //velocity *= 0.6;
     velocity *= reduction;
