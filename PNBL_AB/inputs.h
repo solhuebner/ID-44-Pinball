@@ -9,7 +9,7 @@ extern Ball ball;
 void checkInputs()
 {
   if (arduboy.justPressed(A_BUTTON)) {
-    ball.impulse(vec2(0, -10));
+    ball.impulse(vec2(0, -7));
   }
   if (arduboy.justPressed(B_BUTTON)) {
     Serial.print("Position: ");

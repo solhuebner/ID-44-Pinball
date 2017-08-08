@@ -23,7 +23,7 @@ public:
   Ball() : Ball(0, 0, vec2(0, 0)) {}
 
   void draw() {
-    sprites.drawPlusMask(int(pos.x) - 2, int(pos.y) - 2 - camY, sprBall, 0);
+    sprites.drawPlusMask(round(pos.x) - 2, round(pos.y) - 2 - camY, sprBall, 0);
   }
 
   void update() {
@@ -90,17 +90,17 @@ public:
     vec2 safe = pos;
     vec2 newpos(pos);
 
-    if (vmag <= 1) {
+    /*if (vmag <= 1) {
       newpos += velocity;
       surface_normal = checkCollision(round(newpos.x), round(newpos.y));
       if (surface_normal.getMagnitude() != EMPTY) {
-        /*Serial.print("ONEcollision at: ");
+        Serial.print("ONEcollision at: ");
         newpos.print();
         Serial.print(" snorm: ");
         surface_normal.print();
         Serial.print(" pos: ");
         pos.print();
-        Serial.println("");*/
+        Serial.println("");
         reflect(surface_normal);
       }
       else
@@ -108,10 +108,14 @@ public:
         pos = newpos;
       }
     }
-    else {
-      for (int i = 0; i < vmag; i += 1) {
+    else {*/
+      float inc = 1;
+      if (vmag < 1) {
+        inc = vmag;
+      }
+      for (float i = 0; i < vmag; i += inc) {
         if (surface_normal.getMagnitude() == EMPTY) {
-          newpos += vnorm;
+          newpos += vnorm * inc;
           /*Serial.print("newpos: ");
           newpos.print();
           Serial.println("");*/
@@ -145,7 +149,7 @@ public:
       /*Serial.print(" pos: ");
       pos.print();
       Serial.println("");*/
-    }
+    //}
     /*if (surface_normal.getMagnitude() == EMPTY) {
       vec2 next = pos + velocity;
       if (checkCollision(next.x, next.y).getMagnitude() == 0.0)

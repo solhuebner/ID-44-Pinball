@@ -28,7 +28,7 @@ void stateGamePlaying()
 {
   checkInputs();
   ball.update();
-  camY = max(min(232, ball.getPos().y - 32), 0);
+  camY = max(min(232, round(ball.getPos().y) - 32), 0);
   sprites.drawSelfMasked(0, -camY, sprBoard, 0);
   ball.draw();
 };
