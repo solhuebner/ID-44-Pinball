@@ -12,6 +12,8 @@
 extern Arduboy2Base arduboy;
 extern Sprites sprites;
 
+#define sign(x) (x < 0) ? -1 : 1
+
 class Ball {
 public:
   Ball(int x, int y, vec2 initial_velocity) : velocity(initial_velocity) {
@@ -58,6 +60,8 @@ public:
       reflection_vector += mapGetNormalVector(x, y, comBoard);
     }
     //reflection_vector.convertNormal();
+    if (collision && reflection_vector.getMagnitude() == EMPTY)
+      return vec2 (0, 1);
     return reflection_vector;
   }
 
@@ -84,77 +88,50 @@ public:
     vnorm.convertNormal();
     float vmag = velocity.getMagnitude();
     vec2 surface_normal = checkCollision(pos.x, pos.y);
-    if (surface_normal.getMagnitude() != EMPTY) {
+    /*if (surface_normal.getMagnitude() != EMPTY) {
       moveFromCollision();
-    }
+    }*/
     vec2 safe = pos;
     vec2 newpos(pos);
+    vec2 vcopy = velocity;
+    boolean collide = false;
 
-    /*if (vmag <= 1) {
-      newpos += velocity;
-      surface_normal = checkCollision(round(newpos.x), round(newpos.y));
-      if (surface_normal.getMagnitude() != EMPTY) {
-        Serial.print("ONEcollision at: ");
-        newpos.print();
-        Serial.print(" snorm: ");
-        surface_normal.print();
-        Serial.print(" pos: ");
-        pos.print();
-        Serial.println("");
-        reflect(surface_normal);
-      }
-      else
-      {
-        pos = newpos;
-      }
-    }
-    else {*/
-      float inc = 1;
-      if (vmag < 1) {
-        inc = vmag;
-      }
-      for (float i = 0; i < vmag; i += inc) {
-        if (surface_normal.getMagnitude() == EMPTY) {
-          newpos += vnorm * inc;
-          /*Serial.print("newpos: ");
-          newpos.print();
-          Serial.println("");*/
-    
-          surface_normal = checkCollision(round(newpos.x), round(newpos.y));
+    for (int i = 0; i < vmag; i += 1) {
+      if (!collide) {
+        //newpos += vnorm * inc;
+        if (abs(vcopy.x) < 1) {
+          newpos.x += vcopy.x;
+          vcopy.x = 0;
+        }
+        else{
+          newpos.x += sign(vcopy.x);
+          vcopy.x -= sign(vcopy.x);
+        }
+        if (abs(vcopy.y) < 1) {
+          newpos.y += vcopy.y;
+          vcopy.y = 0;
+        }
+        else{
+          newpos.y += sign(vcopy.y);
+          vcopy.y -= sign(vcopy.y);
+        }
+  
+        surface_normal = checkCollision(round(newpos.x), round(newpos.y));
+        
+        if (surface_normal.getMagnitude() != EMPTY) {
+          collide = true;
+          safe = newpos + surface_normal;
+          safe = vec2(round(safe.x), round(safe.y));
           
-          if (surface_normal.getMagnitude() != EMPTY) {
-            //vec2 final = safe;
-            //pos.x = int(final.x);
-            //pos.y = int(final.y);
-            //safe.x = round(safe.x);
-            //safe.y = round(safe.y);
-            /*Serial.print("TWOcollision at: ");
-            newpos.print();
-            Serial.print(" snorm: ");
-            surface_normal.print();*/
-            safe = vec2(newpos.x, newpos.y) + surface_normal;
-            safe = vec2(round(safe.x), round(safe.y));
-            /*Serial.print(" safe at: ");
-            safe.print();*/
-            //Serial.println("");
-            reflect(surface_normal);
-            break;
-          }
-          else {
-              safe = newpos;
-          }
+          reflect(surface_normal);
+          break;
+        }
+        else {
+            safe = newpos; // don't remove again!
         }
       }
-      pos = safe;
-      /*Serial.print(" pos: ");
-      pos.print();
-      Serial.println("");*/
-    //}
-    /*if (surface_normal.getMagnitude() == EMPTY) {
-      vec2 next = pos + velocity;
-      if (checkCollision(next.x, next.y).getMagnitude() == 0.0)
-        pos = next;
-    }*/
+    }
+    pos = safe;
   }
 
   /*void approachTarget() {
