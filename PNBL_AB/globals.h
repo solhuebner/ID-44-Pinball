@@ -6,6 +6,7 @@
 //#include <ATMlib.h>
 #include "bitmaps.h"
 #include "vec2.h"
+#include "physics.h"
 
 //define menu states (on main menu)
 #define STATE_MENU_INTRO             0
@@ -20,6 +21,9 @@
 #define STATE_GAME_PLAYING           7
 #define STATE_GAME_PAUSE             8
 #define STATE_GAME_OVER              9
+
+#define FRAME_RATE                   30
+#define PHYSICS_TICKS_PER_FRAME      50
 
 #define GAME_TOP                     0
 #define GAME_BOTTOM                  48
@@ -36,6 +40,7 @@
 
 Arduboy2Base arduboy;
 Sprites sprites;
+Physics physics;
 //ATMsynth ATM;
 
 byte gameState = STATE_MENU_INTRO;   // start the game with the TEAM a.r.g. logo
@@ -43,6 +48,6 @@ byte menuSelection = STATE_MENU_PLAY; // PLAY menu item is pre-selected
 byte globalCounter = 0;
 byte level = FIRST_LEVEL;
 byte camY = 0;
-vec2 gravity(0, 0.1);
+vec2 gravity(0, 0.004);
 
 #endif

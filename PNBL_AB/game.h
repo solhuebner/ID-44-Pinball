@@ -43,6 +43,8 @@ void stateGameOver()
   
 };
 
-
+void gameUpdatePhysics() {
+  ball.physicsUpdate();
+}
 
 #endif

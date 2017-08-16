@@ -41,12 +41,14 @@ void setup() {
   arduboy.boot();                                           // begin with the boot logo en setting up the device to work
   arduboy.audio.begin();
   arduboy.bootLogoSpritesSelfMasked();
-  arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
+  arduboy.setFrameRate(FRAME_RATE);
+  physics = Physics(FRAME_RATE, PHYSICS_TICKS_PER_FRAME);
   Serial.begin(9600);
 }
 
 
 void loop() {
+  if (gameState == STATE_GAME_PLAYING && physics.nextTick()) gameUpdatePhysics();
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();
   arduboy.clear();
