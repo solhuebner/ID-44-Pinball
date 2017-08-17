@@ -71,6 +71,10 @@ public:
     return pos;
   }
 
+  void setPos(const vec2 &dest) {
+    pos = dest;
+  }
+
   void print() {
     Serial.print("Ball: Position: ");
     pos.print();

@@ -6,13 +6,18 @@
 #include "inputs.h"
 #include "elements.h"
 #include "ball.h"
+#include "flipper.h"
 
 Ball ball;
+Flipper flipperLeft(30, 213, -1);
+Flipper flipperRight(86, 213, 1);
 
 void stateMenuPlay()
 //void stateGamePrepareLevel()
 {
   ball = Ball(123, 219);
+  /*flipperLeft = Flipper(31, 214, -1);
+  flipperRight = Flipper(85, 214, 1);*/
   createNormals();
   gameState = STATE_GAME_NEXT_LEVEL;
 };
@@ -29,8 +34,11 @@ void stateGamePlaying()
 {
   checkInputs();
   ball.update();
+  flipperLeft.update();
   camY = max(min(232, round(ball.getPos().y) - 32), 0);
   sprites.drawSelfMasked(0, -camY, sprBoard, 0);
+  flipperLeft.draw();
+  flipperRight.draw();
   ball.draw();
 };
 
@@ -46,6 +54,8 @@ void stateGameOver()
 
 void gameUpdatePhysics() {
   ball.physicsUpdate();
+  flipperRight.physicsUpdate();
+  flipperLeft.physicsUpdate();
 }
 
 #endif

@@ -72,6 +72,22 @@ struct vec2
     return *this;
   }
 
+  boolean operator>(const vec2 &rhs) {
+    return (x > rhs.x && y > rhs.y);
+  }
+
+  boolean operator<(const vec2 &rhs) {
+    return (x < rhs.x && y < rhs.y);
+  }
+
+  boolean operator==(const vec2 &rhs) {
+    return (x == rhs.x && y == rhs.y);
+  }
+  
+  boolean operator!=(const vec2 &rhs) {
+    return !(*this == rhs);
+  }
+
   /*vec2 &operator=(const vec2 &rhs)
   {
     x = rhs.x;
