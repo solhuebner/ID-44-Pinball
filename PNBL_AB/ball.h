@@ -52,7 +52,7 @@ public:
   }
 
   void reflect(vec2 normal_vector) {
-    velocity -= normal_vector * 1 * (velocity * normal_vector);
+    velocity -= normal_vector * 1.3 * (velocity * normal_vector);
   }
 
   /*void reflect(vec2 normal_vector) {

@@ -13,6 +13,7 @@ void stateMenuPlay()
 //void stateGamePrepareLevel()
 {
   ball = Ball(123, 219);
+  createNormals();
   gameState = STATE_GAME_NEXT_LEVEL;
 };
 

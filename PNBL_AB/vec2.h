@@ -33,13 +33,14 @@ struct vec2
 
   void convertNormal()
   {
-    if (getMagnitude() == 0.0) {
+    float mag = getMagnitude();
+    if (mag == 0.0) {
       x = 0;
       y = 0;
     }
     else {
-      x = x / getMagnitude();
-      y = y / getMagnitude();
+      x = x / mag;
+      y = y / mag;
     }
   }
 
