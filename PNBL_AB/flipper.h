@@ -5,6 +5,8 @@
 #include "ball.h"
 
 extern Ball ball;
+extern Arduboy2Base arduboy;
+extern Sprites sprites;
 
 //#define ANGLE_START   205.00 * PI() / 180
 //#define ANGLE_END     150.00 * PI() / 180
@@ -12,9 +14,12 @@ extern Ball ball;
 
 #define ANGLE_START     3.577
 #define ANGLE_END       2.618
-#define ROT_ACCEL       0.005
+#define ROT_ACCEL       0.003
 #define FLIPPER_LENGTH  22
 
+
+// left is -1
+// right is 1
 class Flipper {
 public:
   boolean flipping;
@@ -29,10 +34,16 @@ public:
   }
 
   void draw() {
-    arduboy.drawLine(baseX, baseY - camY,
+    /*arduboy.drawLine(baseX, baseY - camY,
                     baseX + (rotDirection * cos(rotation) * FLIPPER_LENGTH),
                     baseY - (sin(rotation) * FLIPPER_LENGTH) - camY, BLACK
-                    );
+                    );*/
+    byte image = 0;
+    if (rotation < 2.938)
+      image = 2;
+    else if (rotation < 3.257)
+      image = 1;
+    sprites.drawPlusMask(baseX - (rotDirection > 0) * 20, baseY - 5 - camY, sprFlipper, image + (rotDirection > 0) * 3);
   }
 
   void update() {

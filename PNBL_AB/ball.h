@@ -28,6 +28,10 @@ public:
 
   void physicsUpdate() {
     velocity += gravity;
+    if (velocity.getMagnitude() > 2) {
+      velocity.convertNormal();
+      velocity *= 2;
+    }
 
     vec2 surface_normal = checkCollision(pos + velocity);
     if (surface_normal.getMagnitude() == EMPTY) {

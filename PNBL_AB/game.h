@@ -9,8 +9,8 @@
 #include "flipper.h"
 
 Ball ball;
-Flipper flipperLeft(30, 213, -1);
-Flipper flipperRight(86, 213, 1);
+Flipper flipperLeft(33, 213, -1);
+Flipper flipperRight(85, 213, 1);
 
 void stateMenuPlay()
 //void stateGamePrepareLevel()
