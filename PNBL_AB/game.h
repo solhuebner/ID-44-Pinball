@@ -11,6 +11,9 @@
 Ball ball;
 Flipper flipperLeft(33, 213, -1);
 Flipper flipperRight(85, 213, 1);
+Bumper bumper1(43, 71);
+Bumper bumper2(60, 126);
+Bumper bumper3(22, 119);
 
 void stateMenuPlay()
 //void stateGamePrepareLevel()
@@ -39,6 +42,9 @@ void stateGamePlaying()
   sprites.drawSelfMasked(0, -camY, sprBoard, 0);
   flipperLeft.draw();
   flipperRight.draw();
+  bumper1.draw();
+  bumper2.draw();
+  bumper3.draw();
   ball.draw();
 };
 
@@ -56,6 +62,9 @@ void gameUpdatePhysics() {
   ball.physicsUpdate();
   flipperRight.physicsUpdate();
   flipperLeft.physicsUpdate();
+  bumper1.physicsUpdate();
+  bumper2.physicsUpdate();
+  bumper3.physicsUpdate();
 }
 
 #endif

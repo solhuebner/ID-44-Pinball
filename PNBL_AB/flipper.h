@@ -68,14 +68,9 @@ public:
 
     vec2 col = checkCollision();
     if (col != vec2(0, 0)) {
-      //Serial.print("Collision. rotSpeed: ");
-      //Serial.print(rotSpeed);
       ball.reflect(getNormal());
       vec2 imp = getNormal() * getBaseDistance() * rotSpeed * 0.5;
       ball.setPos(col + getNormal());
-      //Serial.print(", impulse: ");
-      imp.print();
-      //Serial.println();
       ball.impulse(imp);
       rotSpeed = 0;
     }
